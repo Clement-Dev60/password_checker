@@ -119,6 +119,15 @@ h1 {
   border-color: #7c6af7;
   box-shadow: 0 0 0 3px rgba(124, 106, 247, 0.25);
 }
+@media (max-width: 480px) {
+  .input-wrap input[type=password],
+  .input-wrap input[type=text] {
+    font-size: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
 
 .icons {
   display: flex;
