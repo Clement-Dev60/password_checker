@@ -153,3 +153,76 @@ function toggleVis() {
     input.type = isHidden ? 'text' : 'password';
     icon.innerHTML = isHidden ? EYE_CLOSED : EYE_OPEN;
 }
+
+// ─────────────────────────────────────────
+// Generator
+// ─────────────────────────────────────────
+
+const CHARS = {
+    lower: 'abcdefghijklmnopqrstuvwxyz',
+    upper: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+    numbers: '0123456789',
+    symbols: '!@#$%^&*()_+-=[]{}|;:,.<>?',
+};
+
+function toggleGenerator() {
+    document.getElementById('gen-panel').classList.toggle('open');
+}
+
+function updateLengthDisplay() {
+    const val = document.getElementById('gen-length').value;
+    document.getElementById('gen-length-val').textContent = val;
+}
+
+function generatePassword() {
+    const length = parseInt(document.getElementById('gen-length').value);
+    const useMaj = document.getElementById('gen-maj').checked;
+    const useNum = document.getElementById('gen-num').checked;
+    const useSym = document.getElementById('gen-sym').checked;
+
+    // Construit le pool de caractères
+    let pool = CHARS.lower;
+    if (useMaj) pool += CHARS.upper;
+    if (useNum) pool += CHARS.numbers;
+    if (useSym) pool += CHARS.symbols;
+
+    // Garantit au moins un caractère de chaque type activé
+    let pwd = '';
+    if (useMaj) pwd += randomChar(CHARS.upper);
+    if (useNum) pwd += randomChar(CHARS.numbers);
+    if (useSym) pwd += randomChar(CHARS.symbols);
+    pwd += randomChar(CHARS.lower); // toujours au moins une minuscule
+
+    // Complète jusqu'à la longueur voulue
+    while (pwd.length < length) {
+        pwd += randomChar(pool);
+    }
+
+    // Mélange pour éviter que les caractères garantis soient toujours au début
+    pwd = shuffle(pwd);
+
+    // Injecte dans l'input et déclenche l'évaluation
+    const input = document.getElementById('pwd');
+    input.value = pwd;
+    input.type = 'text'; // affiche le mdp généré
+    document.getElementById('eye-icon').innerHTML = EYE_CLOSED;
+    checkPassword();
+}
+
+function randomChar(str) {
+    // crypto.getRandomValues pour un vrai aléatoire cryptographique
+    const array = new Uint32Array(1);
+    crypto.getRandomValues(array);
+    return str[array[0] % str.length];
+}
+
+function shuffle(str) {
+    const arr = str.split('');
+    for (let i = arr.length - 1; i > 0; i--) {
+        const array = new Uint32Array(1);
+        crypto.getRandomValues(array);
+        const j = array[0] % (i + 1);
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr.join('');
+}

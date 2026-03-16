@@ -29,6 +29,50 @@
                 </svg>
             </button>
         </div>
+        <div class="generator">
+            <button class="generator-btn" onclick="toggleGenerator()" id="gen-btn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                        d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
+                </svg>
+                Générer un mot de passe
+            </button>
+
+            
+            <div class="generator-panel" id="gen-panel">
+                <div class="gen-option">
+                    <label class="gen-label">Longueur</label>
+                    <div class="gen-slider-row">
+                        <input type="range" id="gen-length" min="8" max="32" value="16"
+                            oninput="updateLengthDisplay()" />
+                        <span id="gen-length-val" class="gen-value">16</span>
+                    </div>
+                </div>
+
+                <div class="gen-toggles">
+                    <label class="gen-toggle">
+                        <input type="checkbox" id="gen-maj" checked />
+                        <span class="toggle-track"><span class="toggle-thumb"></span></span>
+                        Majuscules
+                    </label>
+                    <label class="gen-toggle">
+                        <input type="checkbox" id="gen-num" checked />
+                        <span class="toggle-track"><span class="toggle-thumb"></span></span>
+                        Chiffres
+                    </label>
+                    <label class="gen-toggle">
+                        <input type="checkbox" id="gen-sym" checked />
+                        <span class="toggle-track"><span class="toggle-thumb"></span></span>
+                        Symboles
+                    </label>
+                </div>
+
+                <button class="gen-submit" onclick="generatePassword()">
+                    Générer et tester
+                </button>
+            </div>
+        </div>
 
         <div id="placeholder" class="placeholder-hint">↑ commencez à taper</div>
 

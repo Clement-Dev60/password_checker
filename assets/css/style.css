@@ -297,4 +297,143 @@ h1 {
   letter-spacing: 0.03em;
 }
 
+.generator {
+  margin-bottom: 1.4rem;
+}
+
+.generator-btn {
+  font-family: "DM Mono", monospace;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #7c6af7;
+  background: rgba(124, 106, 247, 0.08);
+  border: 1px solid rgba(124, 106, 247, 0.2);
+  border-radius: 20px;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+.generator-btn:hover {
+  background: rgba(124, 106, 247, 0.15);
+  border-color: rgba(124, 106, 247, 0.4);
+}
+
+.generator-panel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s;
+  opacity: 0;
+}
+.generator-panel.open {
+  max-height: 300px;
+  opacity: 1;
+}
+
+.gen-option {
+  margin-top: 1rem;
+}
+
+.gen-label {
+  font-family: "DM Mono", monospace;
+  font-size: 11px;
+  color: #6b6b80;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.gen-slider-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.gen-slider-row input[type=range] {
+  flex: 1;
+}
+
+.gen-value {
+  font-family: "DM Mono", monospace;
+  font-size: 13px;
+  font-weight: 500;
+  color: #f0f0f5;
+  min-width: 24px;
+  text-align: right;
+}
+
+.gen-toggles {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.gen-toggle {
+  font-family: "DM Mono", monospace;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #6b6b80;
+  cursor: pointer;
+  user-select: none;
+}
+.gen-toggle input[type=checkbox] {
+  display: none;
+}
+
+.toggle-track {
+  width: 32px;
+  height: 18px;
+  background: #1a1a24;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 20px;
+  position: relative;
+  transition: background 0.2s, border-color 0.2s;
+  flex-shrink: 0;
+}
+.toggle-track .toggle-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 12px;
+  height: 12px;
+  background: #6b6b80;
+  border-radius: 50%;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.gen-toggle input:checked + .toggle-track {
+  background: rgba(124, 106, 247, 0.2);
+  border-color: rgba(124, 106, 247, 0.4);
+}
+.gen-toggle input:checked + .toggle-track .toggle-thumb {
+  transform: translateX(14px);
+  background: #7c6af7;
+}
+
+.gen-submit {
+  font-family: "DM Mono", monospace;
+  width: 100%;
+  margin-top: 1rem;
+  padding: 10px;
+  background: #7c6af7;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  letter-spacing: 0.03em;
+  transition: opacity 0.2s, transform 0.1s;
+}
+.gen-submit:hover {
+  opacity: 0.85;
+}
+.gen-submit:active {
+  transform: scale(0.98);
+}
+
 /*# sourceMappingURL=style.css.map */
