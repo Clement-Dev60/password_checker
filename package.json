@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "build": "sass --watch assets/scss:assets/css"
+  },
+  "dependencies": {
+    "sass": "^1.98.0",
+    "zxcvbn": "^4.4.2"
+  }
+}

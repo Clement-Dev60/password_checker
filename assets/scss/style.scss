@@ -1,0 +1,386 @@
+// ─────────────────────────────────────────
+// Tokens
+// ─────────────────────────────────────────
+
+$font-sans: "Syne", sans-serif;
+$font-mono: "DM Mono", monospace;
+
+$bg: #0a0a0f;
+$surface: #111118;
+$surface2: #1a1a24;
+$border: rgba(255, 255, 255, 0.07);
+$border-hover: rgba(255, 255, 255, 0.15);
+$text: #f0f0f5;
+$muted: #6b6b80;
+$accent: #7c6af7;
+$accent-glow: rgba(124, 106, 247, 0.25);
+
+$score-colors: (
+	0: #ff4d4d,
+	1: #ff7a2f,
+	2: #f5c518,
+	3: #4de8a0,
+	4: #7c6af7,
+);
+
+// ─────────────────────────────────────────
+// Mixins
+// ─────────────────────────────────────────
+
+@mixin mono {
+	font-family: $font-mono;
+}
+
+@mixin surface-card {
+	background: $surface2;
+	border: 1px solid $border;
+	border-radius: 12px;
+}
+
+@mixin animated-in($delay: 0s) {
+	opacity: 0;
+	transform: translateY(6px);
+	transition: opacity 0.35s $delay, transform 0.35s $delay;
+
+	&.visible {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+// ─────────────────────────────────────────
+// Reset
+// ─────────────────────────────────────────
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+// ─────────────────────────────────────────
+// Base
+// ─────────────────────────────────────────
+
+body {
+	background: $bg;
+	color: $text;
+	font-family: $font-sans;
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 2rem;
+}
+
+// ─────────────────────────────────────────
+// Card
+// ─────────────────────────────────────────
+
+.card {
+	width: 100%;
+	max-width: 520px;
+	background: $surface;
+	border: 1px solid $border;
+	border-radius: 20px;
+	padding: 2.5rem;
+	position: relative;
+	overflow: hidden;
+
+	&::before {
+		content: "";
+		position: absolute;
+		top: -80px;
+		right: -80px;
+		width: 260px;
+		height: 260px;
+		background: $accent-glow;
+		border-radius: 50%;
+		filter: blur(80px);
+		pointer-events: none;
+		opacity: 0.6;
+		transition: opacity 0.5s;
+	}
+}
+
+// ─────────────────────────────────────────
+// Header
+// ─────────────────────────────────────────
+
+.tag {
+	@include mono;
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	font-size: 11px;
+	color: $accent;
+	background: rgba(124, 106, 247, 0.12);
+	border: 1px solid rgba(124, 106, 247, 0.25);
+	border-radius: 20px;
+	padding: 4px 12px;
+	margin-bottom: 1.4rem;
+	letter-spacing: 0.05em;
+
+	&::before {
+		content: "";
+		width: 6px;
+		height: 6px;
+		background: $accent;
+		border-radius: 50%;
+		animation: pulse 2s infinite;
+	}
+}
+
+@keyframes pulse {
+	0%,
+	100% {
+		opacity: 1;
+		transform: scale(1);
+	}
+	50% {
+		opacity: 0.4;
+		transform: scale(0.7);
+	}
+}
+
+h1 {
+	font-size: 1.6rem;
+	font-weight: 700;
+	margin-bottom: 0.4rem;
+	letter-spacing: -0.02em;
+}
+
+.subtitle {
+	font-size: 0.85rem;
+	color: $muted;
+	margin-bottom: 2rem;
+	font-weight: 400;
+}
+
+// ─────────────────────────────────────────
+// Input
+// ─────────────────────────────────────────
+
+.input-wrap {
+	position: relative;
+	margin-bottom: 1.4rem;
+
+	input[type="password"],
+	input[type="text"] {
+		@include mono;
+		width: 100%;
+		background: $surface2;
+		border: 1px solid $border;
+		border-radius: 12px;
+		padding: 14px 52px 14px 18px;
+		font-size: 15px;
+		color: $text;
+		outline: none;
+		letter-spacing: 0.05em;
+		transition: border-color 0.2s, box-shadow 0.2s;
+
+		&:focus {
+			border-color: $accent;
+			box-shadow: 0 0 0 3px $accent-glow;
+		}
+	}
+}
+
+.toggle-btn {
+	position: absolute;
+	right: 14px;
+	top: 50%;
+	transform: translateY(-50%);
+	background: none;
+	border: none;
+	cursor: pointer;
+	color: $muted;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 4px;
+	transition: color 0.2s;
+
+	&:hover {
+		color: $text;
+	}
+}
+
+// ─────────────────────────────────────────
+// Strength bar
+// ─────────────────────────────────────────
+
+.bar-wrap {
+	height: 4px;
+	background: $surface2;
+	border-radius: 2px;
+	overflow: hidden;
+	margin-bottom: 1.4rem;
+}
+
+.bar-fill {
+	height: 100%;
+	width: 0%;
+	border-radius: 2px;
+	transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.4s;
+}
+
+// ─────────────────────────────────────────
+// Score row
+// ─────────────────────────────────────────
+
+.score-row {
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+	margin-bottom: 0.6rem;
+	opacity: 0;
+	transform: translateY(4px);
+	transition: opacity 0.3s, transform 0.3s;
+
+	&.visible {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.score-label {
+	font-size: 1rem;
+	font-weight: 600;
+	letter-spacing: -0.01em;
+	transition: color 0.3s;
+}
+
+.score-sub {
+	@include mono;
+	font-size: 11px;
+	color: $muted;
+}
+
+// ─────────────────────────────────────────
+// Stats grid
+// ─────────────────────────────────────────
+
+.stats {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 10px;
+	margin-bottom: 1.4rem;
+	@include animated-in(0.05s);
+}
+
+.stat {
+	@include surface-card;
+	padding: 14px 16px;
+}
+
+.stat-label {
+	@include mono;
+	font-size: 10px;
+	color: $muted;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	margin-bottom: 6px;
+}
+
+.stat-value {
+	font-size: 0.9rem;
+	font-weight: 600;
+	color: $text;
+}
+
+// ─────────────────────────────────────────
+// Chips
+// ─────────────────────────────────────────
+
+.chips {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin-bottom: 1.4rem;
+	@include animated-in(0.1s);
+}
+
+.chip {
+	@include mono;
+	font-size: 11px;
+	padding: 5px 12px;
+	border-radius: 20px;
+	border: 1px solid;
+	transition: all 0.25s;
+
+	&.ok {
+		background: rgba(77, 232, 160, 0.1);
+		border-color: rgba(77, 232, 160, 0.3);
+		color: #4de8a0;
+	}
+
+	&.fail {
+		background: rgba(255, 255, 255, 0.03);
+		border-color: $border;
+		color: $muted;
+	}
+}
+
+// ─────────────────────────────────────────
+// Feedback
+// ─────────────────────────────────────────
+
+.feedback {
+	border-left: 2px solid rgba(245, 197, 24, 0.5);
+	padding: 10px 14px;
+	background: rgba(245, 197, 24, 0.05);
+	border-radius: 0 10px 10px 0;
+	font-size: 0.82rem;
+	color: #d4aa20;
+	line-height: 1.6;
+	@include animated-in(0.15s);
+
+	&.hidden {
+		display: none;
+	}
+}
+
+// ─────────────────────────────────────────
+// Footer
+// ─────────────────────────────────────────
+
+.footer {
+	margin-top: 2rem;
+	padding-top: 1.2rem;
+	border-top: 1px solid $border;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.footer-label {
+	@include mono;
+	font-size: 11px;
+	color: $muted;
+}
+
+.footer-badge {
+	@include mono;
+	font-size: 10px;
+	color: $accent;
+	background: rgba(124, 106, 247, 0.1);
+	border: 1px solid rgba(124, 106, 247, 0.2);
+	border-radius: 20px;
+	padding: 3px 10px;
+}
+
+// ─────────────────────────────────────────
+// Placeholder hint
+// ─────────────────────────────────────────
+
+.placeholder-hint {
+	@include mono;
+	font-size: 0.82rem;
+	color: $muted;
+	text-align: center;
+	padding: 1rem 0 0.5rem;
+	letter-spacing: 0.03em;
+}

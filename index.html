@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Password Strength Tester</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <script src="node_modules/zxcvbn/dist/zxcvbn.js"></script>
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+    <div class="card">
+        <div class="tag">security · zxcvbn</div>
+        <h1>Password Strength</h1>
+        <p class="subtitle">Analyse en temps réel basée sur zxcvbn par Dropbox.</p>
+
+        <div class="input-wrap">
+            <input type="password" id="pwd" placeholder="Entrez un mot de passe…" oninput="checkPassword()"
+                autocomplete="off" />
+            <button class="toggle-btn" onclick="toggleVis()" title="Afficher / masquer">
+                <svg id="eye-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                    <circle cx="12" cy="12" r="3" />
+                </svg>
+            </button>
+        </div>
+
+        <div id="placeholder" class="placeholder-hint">↑ commencez à taper</div>
+
+        <div id="score-row" class="score-row">
+            <span id="score-label" class="score-label">—</span>
+            <span id="score-sub" class="score-sub"></span>
+        </div>
+
+        <div class="bar-wrap">
+            <div id="bar" class="bar-fill"></div>
+        </div>
+
+        <div id="stats" class="stats">
+            <div class="stat">
+                <div class="stat-label">Attaque en ligne</div>
+                <div class="stat-value" id="t-online">—</div>
+            </div>
+            <div class="stat">
+                <div class="stat-label">Attaque hors-ligne</div>
+                <div class="stat-value" id="t-offline">—</div>
+            </div>
+        </div>
+
+        <div id="chips" class="chips">
+            <span class="chip fail" id="c-len">8+ caractères</span>
+            <span class="chip fail" id="c-maj">Majuscule</span>
+            <span class="chip fail" id="c-num">Chiffre</span>
+            <span class="chip fail" id="c-sym">Symbole</span>
+            <span class="chip fail" id="c-long">12+ caractères</span>
+        </div>
+
+        <div id="feedback" class="feedback hidden"></div>
+
+        <div class="footer">
+            <span class="footer-label">powered by zxcvbn</span>
+            <span class="footer-badge">v4.4.2</span>
+        </div>
+    </div>
+</body>
+
+</html>
