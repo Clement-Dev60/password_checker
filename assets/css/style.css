@@ -93,6 +93,12 @@ h1 {
   position: relative;
   margin-bottom: 1.4rem;
 }
+.input-wrap .icons {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
 .input-wrap input[type=password],
 .input-wrap input[type=text] {
   font-family: "DM Mono", monospace;
@@ -101,6 +107,7 @@ h1 {
   border: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: 12px;
   padding: 14px 52px 14px 18px;
+  padding-right: 80px;
   font-size: 15px;
   color: #f0f0f5;
   outline: none;
@@ -113,11 +120,14 @@ h1 {
   box-shadow: 0 0 0 3px rgba(124, 106, 247, 0.25);
 }
 
+.icons {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
 .toggle-btn {
-  position: absolute;
-  right: 14px;
-  top: 50%;
-  transform: translateY(-50%);
+  position: static;
   background: none;
   border: none;
   cursor: pointer;
@@ -434,6 +444,27 @@ h1 {
 }
 .gen-submit:active {
   transform: scale(0.98);
+}
+
+.toast {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  background: #1a1a24;
+  border: 1px solid rgba(124, 106, 247, 0.3);
+  color: #f0f0f5;
+  font-family: "DM Mono", monospace;
+  font-size: 12px;
+  padding: 10px 20px;
+  border-radius: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }
 
 /*# sourceMappingURL=style.css.map */

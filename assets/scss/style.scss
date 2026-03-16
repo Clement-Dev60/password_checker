@@ -167,6 +167,13 @@ h1 {
 	position: relative;
 	margin-bottom: 1.4rem;
 
+	.icons {
+		position: absolute;
+		right: 10px;
+		top: 50%;
+		transform: translateY(-50%);
+	}
+
 	input[type="password"],
 	input[type="text"] {
 		@include mono;
@@ -175,6 +182,7 @@ h1 {
 		border: 1px solid $border;
 		border-radius: 12px;
 		padding: 14px 52px 14px 18px;
+		padding-right: 80px;
 		font-size: 15px;
 		color: $text;
 		outline: none;
@@ -187,12 +195,14 @@ h1 {
 		}
 	}
 }
+.icons {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+}
 
 .toggle-btn {
-	position: absolute;
-	right: 14px;
-	top: 50%;
-	transform: translateY(-50%);
+	position: static;
 	background: none;
 	border: none;
 	cursor: pointer;
@@ -532,5 +542,31 @@ h1 {
 	}
 	&:active {
 		transform: scale(0.98);
+	}
+}
+
+// ─────────────────────────────────────────
+// Toast
+// ─────────────────────────────────────────
+
+.toast {
+	position: fixed;
+	bottom: 2rem;
+	left: 50%;
+	transform: translateX(-50%) translateY(10px);
+	background: $surface2;
+	border: 1px solid rgba(124, 106, 247, 0.3);
+	color: $text;
+	@include mono;
+	font-size: 12px;
+	padding: 10px 20px;
+	border-radius: 20px;
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.2s, transform 0.2s;
+
+	&.show {
+		opacity: 1;
+		transform: translateX(-50%) translateY(0);
 	}
 }

@@ -24,6 +24,10 @@ const TRANSLATIONS = {
     'All-uppercase is almost as easy to guess as all-lowercase': 'Tout en majuscules est presque aussi facile à deviner.',
     "Reversed words aren't much harder to guess": 'Les mots inversés sont facilement devinables.',
     "Predictable substitutions like '@' instead of 'a' don't help very much": "Les substitutions prévisibles (@ → a) n'aident pas.",
+    "This is a top-10 common password": 'Ceci est dans le top 10 des mots de passes communs',
+    "This is a top-100 common password": 'Ceci est dans le top 100 des mots de passes communs',
+    "This is similar to a commonly used password": 'Ceci est similaire à un mot de passe utilisé fréquemment',
+    "This is a very common password": 'Ceci est un mot de passe très commun',
 };
 
 const TIME_MAP = {
@@ -153,6 +157,34 @@ function toggleVis() {
     input.type = isHidden ? 'text' : 'password';
     icon.innerHTML = isHidden ? EYE_CLOSED : EYE_OPEN;
 }
+
+// ─────────────────────────────────────────
+// Toast + Copy
+// ─────────────────────────────────────────
+
+let toastTimer = null;
+
+function showToast(message = 'Mot de passe copié !') {
+    const toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.classList.add('show');
+
+    // Remet le timer à zéro si on rappelle la fonction rapidement
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => {
+        toast.classList.remove('show');
+    }, 2000);
+}
+
+function copy() {
+    const password = document.getElementById('pwd');
+    if (!password.value) return;
+
+    navigator.clipboard.writeText(password.value)
+        .then(() => showToast('Mot de passe copié !'))
+        .catch(() => showToast('Erreur lors de la copie'));
+}
+
 
 // ─────────────────────────────────────────
 // Generator
